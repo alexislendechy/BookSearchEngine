@@ -48,10 +48,11 @@ To run this application on your local machine, follow the instructions below.
 2. Install dependencies: `npm install`
 3. Create a `.env` file in the root of the `server` directory with the following content:
 
-   ``
+   ``````
    MONGODB_URI= your_mongodb_uri
+   
    JWT_SECRET= your_secret_key
-   ``
+   ``````
 
    Replace `your_mongodb_uri` with your MongoDB connection string and `your_secret_key` with a secure, random key for JWT.
 
