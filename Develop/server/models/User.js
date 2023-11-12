@@ -6,31 +6,34 @@ const bookSchema = require('./Book');
 
 const userSchema = new Schema(
   {
-    username: {
-      type: String,
-      required: true,
-      unique: true,
-    },
-    email: {
-      type: String,
-      required: true,
-      unique: true,
-      match: [/.+@.+\..+/, 'Must use a valid email address'],
-    },
-    password: {
-      type: String,
-      required: true,
-    },
-    // set savedBooks to be an array of data that adheres to the bookSchema
-    savedBooks: [bookSchema],
+  username: {
+    type: String,
+    unique: true,
+    required: true,
   },
-  // set this to use virtual below
-  {
-    toJSON: {
-      virtuals: true,
+  email: {
+    type: String,
+    unique: true,
+    required: true,
+    match: [/.+@.+\..+/, 'Must match an email address!'],
+  },
+  password: {
+    type: String,
+    required: true,
+    minlength: 5,
+  },
+  savedBooks: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'Book',
     },
-  }
-);
+    {
+      toJSON: {
+        virtual: true,
+      },
+    }
+  ],
+});
 
 // hash user password
 userSchema.pre('save', async function (next) {
